@@ -1,0 +1,16 @@
+<html>
+  <head>
+  <title>tests...</title>
+    <script src="/scripts/uitest.js"></script>
+  </head>
+  <body></body>
+    <script>
+var test = uitest.create();
+test.url("/game.html");
+test.ready(function (document) {
+  document.open();
+  document.write("<html><head><title>HAHA</title></head><body>hello</body></html>");
+  document.close(); 
+});
+</script>
+</html>
