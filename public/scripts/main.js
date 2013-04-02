@@ -27,8 +27,10 @@ $(function () {
     }
     lastHTMLupdate = Date.now();
     htmlDisplayTimeout = setTimeout(function () {
-      test = uitest.create();
-      test.url("/app.html");
+      if (!test) {
+        test = uitest.create();
+        test.url("/app.html");
+      }
       test.ready(function (document) {
         document.open();
         document.write(CukeWorkshop.html);
