@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/styles/main.css">
     <script src="/scripts/jquery-1.9.1.min.js"></script>
+    <script src="/cucumber.js"></script>
+    <script src="/scripts/cucumber-runner.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/uitest.js"></script>
     <script src="/scripts/main.js"></script>
@@ -34,11 +36,11 @@
           <div class="tab-pane" id="stepdefs">
             <div class="editor">
               <textarea>this.Given(/^something exists$/, function (callback) {
-  callback.pending();
+  callback();
 });
 
 this.When(/^I do something$/, function (callback) {
-  callback.pending();
+  callback.fail(new Error("I #fail"));
 });
 
 this.Then(/^something happens$/, function (callback) {
@@ -51,15 +53,24 @@ this.Then(/^something happens$/, function (callback) {
               <textarea>&lt;html>
   &lt;head>
     &lt;title>Our game&lt;/title>
+    &lt;link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     &lt;script type="text/javascript">parent.uitest && parent.uitest.instrument(window);&lt;/script>
+    &lt;script src="/scripts/jquery-1.9.1.min.js"></script>
+    &lt;script src="/scripts/bootstrap.min.js"></script>
   &lt;/head>
   &lt;body>
+    &lt;div class="container">
+      &lt;img class="pull-right" src="/images/cukejs-logo-trans-256.png"/>
+      &lt;h1>Our awesome game&lt;/h1>
+      &lt;p>This is the most awesome game you'll ever see.&lt;/lt>
+    &lt;/div>
   &lt;/body>
 &lt;/html></textarea>
             </div>
           </div>
           <div class="tab-pane" id="cucumber">
-            RUUUUUN
+            <button class="btn btn-primary" id="run-feature">Run</button>
+            <div id="output" class="cucumber-report"></div>
           </div>
         </div>
       </div>

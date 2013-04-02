@@ -48,7 +48,4 @@ $(function () {
     });
     updateSource(source);
   }
-
-
-
 });
