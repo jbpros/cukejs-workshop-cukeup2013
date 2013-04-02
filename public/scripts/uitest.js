@@ -1205,7 +1205,7 @@ uitest.define('run/instrumentor', ['documentUtils', 'run/config', 'run/logger', 
                 html = preprocessors[i].processor(html);
             }
 
-            // We need to unpack empty tags to open/close tags here, 
+            // We need to unpack empty tags to open/close tags here,
             // as the new document is always a normal html document. E.g. empty script tags
             // (<script.../>) would result in the next script tag to not be executed!
             html = docUtils.makeEmptyTagsToOpenCloseTags(html);
@@ -1235,7 +1235,7 @@ uitest.define('run/instrumentor', ['documentUtils', 'run/config', 'run/logger', 
         // (e.g. Android 2.3 browser and IE<10).
 
         // No need to care for:
-        // - changing globals: We rewrite the document later which will 
+        // - changing globals: We rewrite the document later which will
         //   revert all globals (see testframe).
         // - modification of the DOM using document.*: document.* access our always new document.
 
@@ -1732,7 +1732,7 @@ uitest.define('run/testframe', ['urlParser', 'global', 'top', 'run/config', 'run
         }
 
         function rewriteWithoutJsUrl() {
-            // We replace the content using an inline script, 
+            // We replace the content using an inline script,
             // so that the window keeps it's original url although we replace it's content!
             // Right now, we only need this for FF, as it does not open javascript urls
             // with the same url as the previous document.
@@ -1741,8 +1741,8 @@ uitest.define('run/testframe', ['urlParser', 'global', 'top', 'run/config', 'run
             // To support xhtml on FF, another idea would be to create a new
             // iframe and modify it's location using history.pushState,
             // so that relative scripts, ... of the new content are loaded correctly.
-            // However, FF throws an exception if history.pushState is used on 
-            // a new frame that was filled using document.open/write/close :-(            
+            // However, FF throws an exception if history.pushState is used on
+            // a new frame that was filled using document.open/write/close :-(
             win.newContent = html;
             var sn = win.document.createElement("script");
             sn.setAttribute("id", "rewriteScript");

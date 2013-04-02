@@ -1,16 +1,68 @@
 <html>
   <head>
-  <title>tests...</title>
+    <title>Cucumber.js - getting started</title>
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <script src="/scripts/jquery-1.9.1.min.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/uitest.js"></script>
+    <script src="/scripts/main.js"></script>
   </head>
-  <body></body>
-    <script>
-var test = uitest.create();
-test.url("/game.html");
-test.ready(function (document) {
-  document.open();
-  document.write("<html><head><title>HAHA</title></head><body>hello</body></html>");
-  document.close(); 
+  <body>
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#feature" data-toggle="tab">Feature</a></li>
+          <li><a href="#stepdefs" data-toggle="tab">Step definitions</a></li>
+          <li><a href="#html" data-toggle="tab">HTML</a></li>
+          <li><a href="#cucumber" data-toggle="tab">Cucumber</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="feature">
+            <div class="editor">
+              <textarea>Feature: do stuff
+  This is a rather obscure feature description.
+
+  Scenario: do something
+    Given something exists
+    When I do something
+    Then something happens</textarea>
+            </div>
+          </div>
+          <div class="tab-pane" id="stepdefs">
+            <div class="editor">
+              <textarea>this.Given(/^something exists$/, function (callback) {
+  callback.pending();
 });
-</script>
+
+this.When(/^I do something$/, function (callback) {
+  callback.pending();
+});
+
+this.Then(/^something happens$/, function (callback) {
+  callback.pending();
+});</textarea>
+            </div>
+          </div>
+          <div class="tab-pane" id="html">
+            <div class="editor">
+              <textarea>&lt;html>
+  &lt;head>
+    &lt;title>Our game&lt;/title>
+    &lt;script type="text/javascript">parent.uitest && parent.uitest.instrument(window);&lt;/script>
+  &lt;/head>
+  &lt;body>
+  &lt;/body>
+&lt;/html></textarea>
+            </div>
+          </div>
+          <div class="tab-pane" id="cucumber">
+            RUUUUUN
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
