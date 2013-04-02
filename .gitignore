@@ -3,6 +3,7 @@ node_modules
 *~
 .#*
 .rvmrc
+.*.swp
 db/*
 config/*.js
 config/*.coffee
