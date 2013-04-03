@@ -1,15 +1,17 @@
 $(function () {
-  var sources      = ["feature", "stepdefs", "html"];
-  var test, htmlDisplayTimeout, lastHTMLupdate;
+  var sources = ["feature", "stepdefs", "html"];
+  var modes   = { feature: "ace/mode/text", stepdefs: "ace/mode/javascript", html: "ace/mode/html" };
+  var editors = [], test, htmlDisplayTimeout, lastHTMLupdate;
 
-  function selectorToSourceInput(source) {
-    var selector = "#" + source + " textarea";
+  function getSourceInputId(source) {
+    var selector = source + "-editor";
     return selector;
   }
 
   function updateSource(source, value) {
-    var selector         = selectorToSourceInput(source);
-    localStorage[source] = $(selector).val();
+    var editor           = editors[source];
+    var content          = editor.getSession().getValue();
+    localStorage[source] = content;
 
     if (source == "html") {
       displayHTML();
@@ -17,9 +19,10 @@ $(function () {
   }
 
   function displaySource(source) {
-    if (localStorage[source]) {
-      var selector = selectorToSourceInput(source);
-      $(selector).val(localStorage[source]);
+    var content = localStorage[source];
+    if (content) {
+      var editor = editors[source];
+      editor.getSession().setValue(content);
     }
   }
 
@@ -46,15 +49,25 @@ $(function () {
     }, timeout);
   }
 
-  for (var i in sources) {
-    var source   = sources[i];
-    var selector = selectorToSourceInput(source);
-
-    $(selector).bind('input propertychange', function(event) {
-      var source = $(this).parent().parent().attr("id");
+  function setupSource(source) {
+    var id          = getSourceInputId(source);
+    var editor      = ace.edit(id);
+    var session     = editor.getSession();
+    editors[source] = editor;
+    editor.setTheme("ace/theme/clouds");
+    editor.setFontSize(16);
+    session.setMode(modes[source]);
+    session.on("change", function (event) {
       updateSource(source);
     });
+
     displaySource(source);
     updateSource(source);
   }
+
+  for (var i in sources) {
+    var source      = sources[i];
+    setupSource(source);
+  }
+  window.editors=editors;
 });

@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/styles/main.css">
     <script src="/scripts/jquery-1.9.1.min.js"></script>
+    <script src="/scripts/ace/src-min-noconflict/ace.js"></script>
     <script src="/cucumber.js"></script>
     <script src="/scripts/cucumber-runner.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
@@ -24,18 +25,18 @@
         <div class="tab-content">
           <div class="tab-pane active" id="feature">
             <div class="editor">
-              <textarea>Feature: do stuff
+              <pre id="feature-editor">Feature: do stuff
   This is a rather obscure feature description.
 
   Scenario: do something
     Given something exists
     When I do something
-    Then something happens</textarea>
+    Then something happens</pre>
             </div>
           </div>
           <div class="tab-pane" id="stepdefs">
             <div class="editor">
-              <textarea>this.Given(/^something exists$/, function (callback) {
+              <pre id="stepdefs-editor">this.Given(/^something exists$/, function (callback) {
   callback();
 });
 
@@ -45,12 +46,12 @@ this.When(/^I do something$/, function (callback) {
 
 this.Then(/^something happens$/, function (callback) {
   callback.pending();
-});</textarea>
+});</pre>
             </div>
           </div>
           <div class="tab-pane" id="html">
             <div class="editor">
-              <textarea>&lt;html>
+              <pre id="html-editor">&lt;html>
   &lt;head>
     &lt;title>Our game&lt;/title>
     &lt;link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
@@ -65,7 +66,7 @@ this.Then(/^something happens$/, function (callback) {
       &lt;p>This is the most awesome game you'll ever see.&lt;/lt>
     &lt;/div>
   &lt;/body>
-&lt;/html></textarea>
+&lt;/html></pre>
             </div>
           </div>
           <div class="tab-pane" id="cucumber">

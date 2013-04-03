@@ -12,12 +12,13 @@ div.editor {
   height: 80%;
 }
 
-.editor textarea {
-  height: 100%;
-  width: 100%;
-  font-family:monospace;
-  font-size: 1.3em;
+.editor pre {
+  display: block;
+  height: 99%;
+  margin: 0;
+  padding: 0;
 }
+
 
 /* cucumber-html */
 
