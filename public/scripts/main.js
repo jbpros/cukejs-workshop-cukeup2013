@@ -34,19 +34,8 @@ $(function () {
       var timeout = 1000 - elapsed;
       if (timeout < 5) timeout = 0;
     }
-    lastHTMLupdate = Date.now();
     htmlDisplayTimeout = setTimeout(function () {
-      if (!test) {
-        test = uitest.create();
-        test.url("/app.html");
-      }
-      test.ready(function (document) {
-        document.open();
-        var content = localStorage.html;
-        document.write(content.toString());
-        document.close();
-        htmlDisplayTimeout = null;
-      });
+      loadReadyApp();
     }, timeout);
   }
 
@@ -73,9 +62,35 @@ $(function () {
     updateSource(source);
   }
 
+  function loadReadyApp(callback) {
+    clearTimeout(htmlDisplayTimeout);
+    if (!test) {
+      test = uitest.create();
+      window.app = test
+      test.url("/app.html");
+    }
+    test.ready(function (document) {
+      document.open();
+      var content = localStorage.html;
+      document.write(content.toString());
+      document.close();
+      htmlDisplayTimeout = null;
+      if (callback) {
+        test.ready(callback);
+      }
+    });
+    lastHTMLupdate = Date.now();
+  }
+
   for (var i in sources) {
     var source = sources[i];
     setupSource(source);
   }
-  window.editors=editors;
+
+  window.loadReadyApp = function (callback) {
+    test = null;
+    loadReadyApp(callback);
+  };
+
+  window.editors = editors;
 });
