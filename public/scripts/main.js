@@ -64,6 +64,9 @@ $(function () {
       updateSource(source);
     });
 
+    $("a[href='#" + source + "']").click(function () {
+      editor.focus();
+    });
     displaySource(source);
     updateSource(source);
   }
