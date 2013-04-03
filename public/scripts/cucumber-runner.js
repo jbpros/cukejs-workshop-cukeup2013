@@ -73,8 +73,8 @@
     var Cucumber        = window.Cucumber;
     var supportCode;
     var output          = $('#output');
-    var featureSource   = CukeWorkshop.feature;
-    eval('supportCode   = function() {' + CukeWorkshop.stepdefs + '};');
+    var featureSource   = localStorage.feature;
+    eval('supportCode   = function() {' + localStorage.stepdefs + '};');
     var cucumber        = Cucumber(featureSource, supportCode);
     var $output         = $('#output');
     $output.empty();

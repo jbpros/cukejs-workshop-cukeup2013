@@ -1,5 +1,4 @@
 $(function () {
-  window.CukeWorkshop = {};
   var sources      = ["feature", "stepdefs", "html"];
   var test, htmlDisplayTimeout, lastHTMLupdate;
 
@@ -8,12 +7,19 @@ $(function () {
     return selector;
   }
 
-  function updateSource(source) {
-    var selector       = selectorToSourceInput(source);
-    CukeWorkshop[source] = $(selector).val();
+  function updateSource(source, value) {
+    var selector         = selectorToSourceInput(source);
+    localStorage[source] = $(selector).val();
 
     if (source == "html") {
       displayHTML();
+    }
+  }
+
+  function displaySource(source) {
+    if (localStorage[source]) {
+      var selector = selectorToSourceInput(source);
+      $(selector).val(localStorage[source]);
     }
   }
 
@@ -33,7 +39,7 @@ $(function () {
       }
       test.ready(function (document) {
         document.open();
-        document.write(CukeWorkshop.html);
+        document.write(localStorage.html);
         document.close();
         htmlDisplayTimeout = null;
       });
@@ -48,6 +54,7 @@ $(function () {
       var source = $(this).parent().parent().attr("id");
       updateSource(source);
     });
+    displaySource(source);
     updateSource(source);
   }
 });
