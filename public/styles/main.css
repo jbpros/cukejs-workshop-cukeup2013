@@ -1,5 +1,5 @@
 body, html, .editor textarea {
-  background: rgba(255,255,255,.9);
+  background: rgba(255,255,255,.8);
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 div.editor {
   display:block;
   width: 100%;
-  height: 80%;
+  height: 90%;
 }
 
 .editor pre {
