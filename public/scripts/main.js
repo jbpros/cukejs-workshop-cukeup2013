@@ -79,7 +79,10 @@ $(function () {
       document.close();
       htmlDisplayTimeout = null;
       if (callback) {
-        test.ready(callback);
+        // looks silly, but seems to make Firefox happy:
+        test.ready(function (document) {
+          test.ready(callback);
+        });
       }
     });
     lastHTMLupdate = Date.now();
