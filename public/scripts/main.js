@@ -20,7 +20,7 @@ $(function () {
 
   function displaySource(source) {
     var content = localStorage[source];
-    if (content) {
+    if (content !== undefined) {
       var editor = editors[source];
       editor.getSession().setValue(content);
     }
@@ -42,7 +42,8 @@ $(function () {
       }
       test.ready(function (document) {
         document.open();
-        document.write(localStorage.html);
+        var content = localStorage.html;
+        document.write(content.toString());
         document.close();
         htmlDisplayTimeout = null;
       });
@@ -57,6 +58,8 @@ $(function () {
     editor.setTheme("ace/theme/clouds");
     editor.setFontSize(16);
     session.setMode(modes[source]);
+    session.setUseSoftTabs(true);
+    session.setTabSize(2);
     session.on("change", function (event) {
       updateSource(source);
     });
@@ -66,7 +69,7 @@ $(function () {
   }
 
   for (var i in sources) {
-    var source      = sources[i];
+    var source = sources[i];
     setupSource(source);
   }
   window.editors=editors;

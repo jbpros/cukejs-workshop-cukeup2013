@@ -25,29 +25,11 @@
         <div class="tab-content">
           <div class="tab-pane active" id="feature">
             <div class="editor">
-              <pre id="feature-editor">Feature: do stuff
-  This is a rather obscure feature description.
-
-  Scenario: do something
-    Given something exists
-    When I do something
-    Then something happens</pre>
-            </div>
+              <pre id="feature-editor">Feature:</div>
           </div>
           <div class="tab-pane" id="stepdefs">
             <div class="editor">
-              <pre id="stepdefs-editor">this.Given(/^something exists$/, function (callback) {
-  callback();
-});
-
-this.When(/^I do something$/, function (callback) {
-  callback.fail(new Error("I #fail"));
-});
-
-this.Then(/^something happens$/, function (callback) {
-  callback.pending();
-});</pre>
-            </div>
+              <pre id="stepdefs-editor"></div>
           </div>
           <div class="tab-pane" id="html">
             <div class="editor">
@@ -56,14 +38,14 @@ this.Then(/^something happens$/, function (callback) {
     &lt;title>Our game&lt;/title>
     &lt;link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
     &lt;script type="text/javascript">parent.uitest && parent.uitest.instrument(window);&lt;/script>
-    &lt;script src="/scripts/jquery-1.9.1.min.js"></script>
-    &lt;script src="/scripts/bootstrap.min.js"></script>
+    &lt;script src="/scripts/jquery-1.9.1.min.js">&lt;/script>
+    &lt;script src="/scripts/bootstrap.min.js">&lt;/script>
   &lt;/head>
   &lt;body>
     &lt;div class="container">
       &lt;img class="pull-right" src="/images/cukejs-logo-trans-256.png"/>
-      &lt;h1>Our awesome game&lt;/h1>
-      &lt;p>This is the most awesome game you'll ever see.&lt;/lt>
+      &lt;h1>Hello&lt;/h1>
+      &lt;p>This page is the container of the app you'll build.&lt;/p>
     &lt;/div>
   &lt;/body>
 &lt;/html></pre>
