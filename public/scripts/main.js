@@ -64,9 +64,11 @@ $(function () {
       updateSource(source);
     });
 
-    $("a[href='#" + source + "']").click(function () {
-      editor.focus();
-    });
+    if (!navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+      $("a[href='#" + source + "']").click(function () {
+        editor.focus();
+      });
+    }
     displaySource(source);
     updateSource(source);
   }
