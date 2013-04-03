@@ -66,7 +66,10 @@ $(function () {
     clearTimeout(htmlDisplayTimeout);
     if (!test) {
       test = uitest.create();
-      window.app = test
+      window.app = test;
+      test.feature('xhrSensor');
+      test.feature('timeoutSensor');
+      test.feature('jqmAnimationSensor');
       test.url("/app.html");
     }
     test.ready(function (document) {
