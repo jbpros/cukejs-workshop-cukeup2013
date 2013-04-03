@@ -78,12 +78,8 @@ $(function () {
       document.write(content.toString());
       document.close();
       htmlDisplayTimeout = null;
-      if (callback) {
-        // looks silly, but seems to make Firefox happy:
-        test.ready(function (document) {
-          test.ready(callback);
-        });
-      }
+      if (callback)
+        test.reloaded(callback);
     });
     lastHTMLupdate = Date.now();
   }
