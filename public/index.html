@@ -27,11 +27,89 @@
         <div class="tab-content">
           <div class="tab-pane active" id="feature">
             <div class="editor">
-              <pre id="feature-editor">Feature:</div>
+              <pre id="feature-editor">Feature: OXO
+
+  Scenario: start game
+    Given I started a game
+    Then I should see an OXO board
+
+  Scenario: playing some turns
+    Given I started a game
+    When I click a cell
+    Then the cell is marked with an X
+    When my opponent clicks a cell
+    Then the cell is marked with an O</pre>
+            </div>
           </div>
           <div class="tab-pane" id="stepdefs">
             <div class="editor">
-              <pre id="stepdefs-editor"></div>
+              <pre id="stepdefs-editor">// STEPDEFS
+
+this.Given("I started a game", function (callback) {
+  this.loadNewGame(callback);
+});
+
+this.When("I click a cell", function (callback) {
+  this.clickCell("B2", callback);
+});
+
+this.When("my opponent clicks a cell", function (callback) {
+  this.clickCell("B3", callback);
+});
+
+this.Then("I should see an OXO board", function (callback) {
+  this.assertBoardIsPresent(callback);
+});
+
+this.Then(/^the cell is marked with an (X|O)$/, function (value, callback) {
+  this.assertCellIsMarkedWithValue(this.cell, value, callback);
+});
+
+// WORLD
+
+var World = function OxoWorld(callback) {
+  this.cell = null;
+  callback();
+};
+
+World.prototype.loadNewGame = function (callback) {
+  loadReadyApp(function () {
+    callback();
+  });
+};
+
+World.prototype.clickCell = function (cell, callback) {
+  var world = this;
+
+  app.ready(function (document) {
+    $(document).find("#cell-" + cell).click();
+    world.cell = cell;
+    callback();
+  });
+};
+
+World.prototype.assertBoardIsPresent = function (callback) {
+  app.ready(function (document) {
+    var cells = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"];
+    for (var i in cells) {
+      var cell = cells[i];
+      if ($(document).find("#cell-" + cell).length === 0)
+        return callback(new Error("Couldn't find cell " + cell));
+    }
+    callback();
+  });
+}
+
+World.prototype.assertCellIsMarkedWithValue = function (cell, value, callback) {
+  app.ready(function (document) {
+    if ($(document).find("#cell-" + cell).text() !== value)
+      return callback(new Error("Cell " + cell + " was expected to be marked with " + value));
+
+    callback();
+  });
+}
+
+this.World = World;</pre></div>
           </div>
           <div class="tab-pane" id="html">
             <div class="editor">
@@ -42,13 +120,71 @@
     &lt;script type="text/javascript">parent.uitest && parent.uitest.instrument(window);&lt;/script>
     &lt;script src="/scripts/jquery-1.9.1.min.js">&lt;/script>
     &lt;script src="/scripts/bootstrap.min.js">&lt;/script>
+    &lt;style>
+      div.cell {
+        font-size: 3em;
+        height: 100px;
+        text-align: center;
+      }
+      #board td {
+        width: 3em;
+        height: 3em;
+        font-size: 4em;
+        border: solid 1px black;
+        text-align:center;
+      }
+    &lt;/style>
   &lt;/head>
   &lt;body>
     &lt;div class="container">
-      &lt;img class="pull-right" src="/images/cukejs-logo-trans-256.png"/>
-      &lt;h1>Hello&lt;/h1>
-      &lt;p>This page is the container of the app you'll build.&lt;/p>
+      &lt;h1>OXO&lt;/h1>
+      &lt;blockquote>
+        &lt;p>OXO was the first digital graphical game to run on a computer.&lt;small>Wikipedia&lt;/small>&lt;/p>
+      &lt;/blockquote>
+      &lt;p>&lt;strong>&lt;span class="next-value">&lt;/span>'s turn to play.&lt;/strong>&lt;/p>
+      &lt;table id="board">
+        &lt;tr>
+          &lt;td id="cell-A1" class="cell">&lt;/td>
+          &lt;td id="cell-A2" class="cell">&lt;/td>
+          &lt;td id="cell-A3" class="cell">&lt;/td>
+        &lt;tr>
+        &lt;tr>
+          &lt;td id="cell-B1" class="cell">&lt;/td>
+          &lt;td id="cell-B2" class="cell">&lt;/td>
+          &lt;td id="cell-B3" class="cell">&lt;/td>
+        &lt;tr>
+        &lt;tr>
+          &lt;td id="cell-C1" class="cell">&lt;/td>
+          &lt;td id="cell-C2" class="cell">&lt;/td>
+          &lt;td id="cell-C3" class="cell">&lt;/td>
+        &lt;tr>
+      &lt;/table>
     &lt;/div>
+    &lt;script>
+      $(function () {
+        var nextValue = "X";
+
+        function getCurrentValue() {
+          var currentValue = nextValue;
+          nextValue = nextValue == "X" ? "O" : "X";
+          return currentValue;
+        }
+
+        function displayNextValue() {
+          $(".next-value").text(nextValue)
+        }
+
+        $(".cell").click(function (event) {
+          if ($(this).text() == "") {
+            var value = getCurrentValue();
+            $(this).text(value);
+            displayNextValue();
+          }
+        });
+
+        displayNextValue();
+      });
+    &lt;/script>
   &lt;/body>
 &lt;/html></pre>
             </div>
