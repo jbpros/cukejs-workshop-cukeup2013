@@ -23,6 +23,10 @@ div.editor {
   padding: 0;
 }
 
+.reset {
+  padding: 1em;
+  text-align: center;
+}
 
 /* cucumber-html */
 

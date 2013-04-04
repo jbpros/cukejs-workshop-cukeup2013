@@ -94,5 +94,10 @@ $(function () {
     loadReadyApp(callback);
   };
 
+  $("#reset").click(function () {
+    localStorage.clear();
+    location.reload();
+  });
+
   window.editors = editors;
 });
